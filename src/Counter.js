@@ -1,6 +1,7 @@
-import useStore from "./store";
+import useStore from './Store/store';
 
 export default function Counter() {
-  const { counter } = useStore();
-  return <h1>{counter}</h1>;
+  // const { counter } = useStore();
+  const { storeStates } = useStore();
+  return <h1>{storeStates[0]}</h1>;
 }

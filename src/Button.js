@@ -1,4 +1,4 @@
-import useStore from "./store";
+import useStore from './Store/store';
 
 export default function Button() {
   const { increment } = useStore();
