@@ -4,6 +4,14 @@ import { BehaviorSubject } from 'rxjs';
 
 const arrayOfStates = [
   {
+    name: 'test',
+    defaultState: 'name',
+    setter: (state, payload) => {
+      if (payload === 'Guillem') return 'Guillem';
+      return 'no';
+    },
+  },
+  {
     name: 'counter',
     defaultState: 0,
     setter: (state, payload) => state + 1,
@@ -24,12 +32,12 @@ function mainStore(states = []) {
     });
     const statesArray = states.map((st) => {
       // Array of React States
-      return useState(st.defaultState);
+      return { name: st.name, reactState: useState(st.defaultState) };
     });
 
     useEffect(() => {
       const subscriptionsArray = subjectsArray.map((subj, i) => {
-        return subj.subscribe(statesArray[i][1]);
+        return subj.subscribe(statesArray[i].reactState[1]);
       });
       // This will be used when the component is unmounted
       return () => {
@@ -41,13 +49,23 @@ function mainStore(states = []) {
       };
     }, []);
 
-    const storeStates = statesArray.map((reactArray) => reactArray[0]);
-    function increment() {
-      subjectsArray[0].next(storeStates[0] + 1);
-    }
+    const storeStates = statesArray.reduce((acc, state) => {
+      acc[state.name] = state.reactState[0];
+      return acc;
+    }, {});
 
-    return { storeStates, increment };
-    // methods: { counter: () => {} }
+    const methods = states.reduce((acc, st, i) => {
+      function setter(fn) {
+        return function (payload) {
+          const nextValue = fn(storeStates[st.name], payload);
+          subjectsArray[i].next(nextValue);
+        };
+      }
+      acc[st.name] = setter(st.setter);
+      return acc;
+    }, {});
+
+    return { storeStates, methods };
   };
 }
 
