@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import { BehaviorSubject } from 'rxjs';
 
-function mainStore(states = []) {
+function createStore(states = []) {
   const subjectsArray = Array(states.length).fill(null);
 
   return function useStore() {
-    /* Without this check, we will re-subscribe to a new Subject 
-    with value 0 and therefore the store will not work */
     subjectsArray.forEach((sub, i, arr) => {
       if (!sub) {
+        /* Without this check, we will re-subscribe to a new Subject 
+        with value 0 and therefore the store will not work */
         const state = states[i];
         arr[i] = new BehaviorSubject(state.defaultState);
       }
@@ -45,7 +45,7 @@ function mainStore(states = []) {
           subjectsArray[i].next(nextValue);
         };
       }
-      acc[st.name] = setter(st.setter);
+      acc[st.name + 'Setter'] = setter(st.setter);
       return acc;
     }, {});
 
@@ -53,4 +53,4 @@ function mainStore(states = []) {
   };
 }
 
-export default mainStore;
+export default createStore;

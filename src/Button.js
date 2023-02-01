@@ -6,19 +6,19 @@ export default function Button() {
     <>
       <button
         onClick={() => {
-          methods.counter();
+          methods.counterSetter();
         }}
       >
         Increment
       </button>
       <button
         onClick={() => {
-          methods.test('Guillem');
+          methods.nameSetter('Guillem');
         }}
       >
         Change name
       </button>
-      <h1>{storeStates.test}</h1>
+      <h1>{storeStates.name}</h1>
     </>
   );
 }
