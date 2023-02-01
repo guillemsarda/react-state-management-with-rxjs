@@ -47,8 +47,8 @@ export default function Button() {
   );
 }
 ```
-
-To run it you only have to access the root directory and run:
+_____
+To launch the App you only have to access the root directory and run:
 
 - `npm i` to install all the dependencies*.
 - `npm start` to run the app in the browser.
@@ -59,4 +59,4 @@ PS: I initially built this with [CodeSandbox](https://codesandbox.io/s/react-sta
 
 \* If it throws an error when installing, run `npm i --legacy-peer-deps`, instead.
 
-**I used this great article https://isamatov.com/react-rxjs-shared-state/ to polish some things that I wasn't doing properly when subscribing.**
+**When starting, I used this rgreat article https://isamatov.com/react-rxjs-shared-state/ to polish some things that I wasn't doing properly when subscribing.**
