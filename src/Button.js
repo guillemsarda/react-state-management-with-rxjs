@@ -1,7 +1,7 @@
 import useStore from './Store/store';
 
 export default function Button() {
-  const { methods } = useStore();
+  const { methods, storeStates } = useStore();
   return (
     <>
       <button
@@ -18,6 +18,7 @@ export default function Button() {
       >
         Change name
       </button>
+      <h1>{storeStates.name}</h1>
     </>
   );
 }
