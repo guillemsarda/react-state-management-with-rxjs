@@ -6,14 +6,14 @@ export default function Button() {
     <>
       <button
         onClick={() => {
-          methods.counterSetter();
+          methods.setCounter();
         }}
       >
         Increment
       </button>
       <button
         onClick={() => {
-          methods.nameSetter('Guillem');
+          methods.setName('Guillem');
         }}
       >
         Change name
